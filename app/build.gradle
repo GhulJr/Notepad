@@ -35,5 +35,7 @@ dependencies {
     // Implementation for CardView.
     implementation 'com.android.support:cardview-v7:28.0.0'
 
-
+    // Implementations for view model.
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
 }

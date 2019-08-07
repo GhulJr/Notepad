@@ -4,22 +4,32 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.oskarrek.notepadapp.recycle_view_adapters.NotesAdapter;
+import com.oskarrek.notepadapp.recycler_view_adapters.NotesAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.oskarrek.notepadapp.models.Note;
+import com.oskarrek.notepadapp.view_models.NotesListViewModel;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NotesAdapter adapter;
+    private NotesListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         setUpRecycleView();
+
+        setUpViewModel();
 
         setUpAddNoteButton();
     }
@@ -68,14 +79,27 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
-        //TODO: it temoporary
-        
-        Note[] notes = new Note[20];
-        for(int i = 0; i < 20; ++i) {
-            notes[i] = new Note("1234", "12312312312312");
-        }
+    }
 
-        adapter.setNotes(notes);
+    private void setUpViewModel() {
+        viewModel = ViewModelProviders
+                .of(this)
+                .get(NotesListViewModel.class);
+
+        //TODO: use lambdas
+        viewModel.getNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                //Check if any note exist.
+                if(notes == null || notes.isEmpty()) {
+                    //TODO: provide information about empty data
+                    Toast.makeText(MainActivity.this,"No data.", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                adapter.setNotes(notes);
+            }
+        });
     }
 
     private void setUpAddNoteButton() {
@@ -83,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Note note = new Note("Title", "Some long text to display");
+
+                viewModel.insertNotes(note);
             }
         });
     }

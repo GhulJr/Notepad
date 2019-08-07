@@ -1,4 +1,4 @@
-package com.oskarrek.notepadapp.recycle_view_adapters;
+package com.oskarrek.notepadapp.recycler_view_adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
-    private Note[] notes;
+    private List<Note> notes;
 
 
     @NonNull
@@ -43,10 +43,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         TextView textView =  holder.noteView.findViewById(R.id.note_list_text);
 
         // Get values.
-        String title = notes[position].getTitle();
-        String text = notes[position].getText();
+        String title = notes.get(position).getTitle();
+        String text = notes.get(position).getText();
 
         // Set Values.
+        //TODO
         imageView.setVisibility(View.GONE);
 
         titleView.setText(title);
@@ -57,7 +58,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     @Override
     public int getItemCount() {
         if(notes != null)
-            return notes.length;
+            return notes.size();
         return -1;
     }
 
@@ -74,7 +75,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     }
 
 
-    public void setNotes(Note[] notes) {
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
         notifyDataSetChanged();
     }
