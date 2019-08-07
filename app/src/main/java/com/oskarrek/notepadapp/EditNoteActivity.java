@@ -33,12 +33,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
     /*If existing note is edited then it's set to true, otherwise it's set to false.*/
     private boolean isExistingNote;
-
-
-   /* /** Denotes annotated forecast type to integer type
-    @IntDef({MODE_VIEW, MODE_EDIT})
-    public @interface Forecast_Type {}
-*/
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

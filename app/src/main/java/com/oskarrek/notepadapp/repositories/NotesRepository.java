@@ -17,8 +17,7 @@ public class NotesRepository {
 
     private NotesDao notesDao;
     private ExecutorService executor;
-
-    public static NotesRepository instance;
+    private static NotesRepository instance;
 
     private NotesRepository(final Context context) {
         NotesDatabase weatherInfoDatabase = NotesDatabase.getInstance(context);
