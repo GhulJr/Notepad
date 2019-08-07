@@ -28,12 +28,6 @@ public class NotesListViewModel extends AndroidViewModel {
         return notesLiveData;
     }
 
-
-    /*Add new note to database.*/
-    public void insertNotes(Note... notes) {
-        notesRepository.insertNotesTask(notes);
-    }
-
     public void deleteNote(Note... notes) {
         notesRepository.deleteNotesTask(notes);
     }

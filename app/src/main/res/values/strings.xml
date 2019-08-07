@@ -4,4 +4,6 @@
     <string name="empty_db">No notes to display.</string>
     <string name="set_title">Set title.</string>
     <string name="add_note">Add note.</string>
+    <string name="save_title">Save</string>
+    <string name="discard_title">Discard</string>
 </resources>

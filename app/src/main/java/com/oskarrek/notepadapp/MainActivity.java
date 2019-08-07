@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.oskarrek.notepadapp.models.Note;
-import com.oskarrek.notepadapp.view_models.EditNoteViewModel;
 import com.oskarrek.notepadapp.view_models.NotesListViewModel;
 
 import java.util.List;
@@ -45,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
         setUpAddNoteButton();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //If notes are note changed, restore recycler view.
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 // Navigate to activity that allows add/edit notes.
                 Intent intent = new Intent(MainActivity.this, EditNoteActivity.class);
                 startActivity(intent);
+
             }
         });
     }
@@ -136,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
             int position = viewHolder.getAdapterPosition();
             //Delete note if swiped left.
             if(direction == ItemTouchHelper.LEFT){
-                viewModel.deleteNote(adapter.getNoteAt(position));
+               viewModel.deleteNote(adapter.getNoteAt(position));
+
             }
             else {
                 Intent intent = new Intent(MainActivity.this, EditNoteActivity.class);

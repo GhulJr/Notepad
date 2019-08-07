@@ -27,4 +27,14 @@ public class EditNoteViewModel extends AndroidViewModel {
     public LiveData<Note> getEditedNote() {
         return editedNote;
     }
+
+    /*Add new note to database.*/
+    public void insertNote(String title, String text) {
+        Note note = new Note(title, text);
+        notesRepository.insertNotesTask(note);
+    }
+
+    public void updateNote(Note note) {
+        notesRepository.updateNotesTask(note);
+    }
 }
