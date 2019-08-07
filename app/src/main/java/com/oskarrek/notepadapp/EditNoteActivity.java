@@ -4,22 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import com.oskarrek.notepadapp.models.Note;
 import com.oskarrek.notepadapp.view_models.EditNoteViewModel;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import java.io.File;
 
 public class EditNoteActivity extends AppCompatActivity {
 
+    private final static int REQUEST_GET_SINGLE_FILE = 0;
+
     private EditText editTextView;
     private EditText editTitleView;
-
     private EditNoteViewModel viewModel;
-
     private Note editedNote;
 
     /*If existing note is edited then it's set to true, otherwise it's set to false.*/
@@ -41,6 +50,11 @@ public class EditNoteActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this).get(EditNoteViewModel.class);
 
         isExistingNote = checkIncomingIntent();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //TODO: set image from taken uri.
     }
 
     @Override
@@ -74,19 +88,30 @@ public class EditNoteActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
+
+            case R.id.action_get_image_from_gallery: {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("image/*");
+                startActivityForResult(Intent
+                        .createChooser(intent, "Select Picture"), REQUEST_GET_SINGLE_FILE);
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
+
     /*Return true if intent was set to edit existing note or add new.*/
     private boolean checkIncomingIntent() {
+
         //If it's true it means that we edit existing note.
-        if(getIntent().hasExtra("edit_note_id")) {
+        if(getIntent().hasExtra(getString(R.string.edit_note_id))) {
             //Hide keyboard if note already exists.
             this.getWindow()
                     .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-            int id = getIntent().getIntExtra("edit_note_id", -1);
+            int id = getIntent().getIntExtra(getString(R.string.edit_note_id), -1);
             setUpViewModel(id);
 
             return true;

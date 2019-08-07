@@ -146,9 +146,12 @@ public class MainActivity extends AppCompatActivity {
                viewModel.deleteNote(adapter.getNoteAt(position));
 
             }
+            // Else edit swiped note.
             else {
                 Intent intent = new Intent(MainActivity.this, EditNoteActivity.class);
-                intent.putExtra("edit_note_id", adapter.getNoteAt(position).getNoteID());
+                intent.putExtra(
+                        getString(R.string.edit_note_id),
+                        adapter.getNoteAt(position).getNoteID());
                 startActivity(intent);
             }
         }

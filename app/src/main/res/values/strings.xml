@@ -6,4 +6,6 @@
     <string name="add_note">Add note.</string>
     <string name="save_title">Save</string>
     <string name="discard_title">Discard</string>
+    <string name="add_image_from_gallery">Add image from gallery</string>
+    <string name="edit_note_id">edit_note_id</string>
 </resources>

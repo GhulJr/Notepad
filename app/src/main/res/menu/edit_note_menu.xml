@@ -14,4 +14,10 @@
         android:title="@string/save_title"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_get_image_from_gallery"
+        android:orderInCategory="200"
+        android:title="@string/add_image_from_gallery"
+        app:showAsAction="never" />
+
 </menu>
