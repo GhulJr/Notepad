@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NotepadApp</string>
     <string name="action_settings">Settings</string>
+    <string name="empty_db">No notes to display.</string>
+    <string name="set_title">Set title.</string>
+    <string name="add_note">Add note.</string>
 </resources>

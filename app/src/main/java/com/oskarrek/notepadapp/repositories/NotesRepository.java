@@ -46,6 +46,10 @@ public class NotesRepository {
         return notesDao.getNotesList();
     }
 
+    public LiveData<Note> getNoteById(int noteId) {
+        return notesDao.getNoteById(noteId);
+    }
+
     public void updateNotesTask(final Note... notes) {
         executor.execute(new Runnable() {
             @Override
@@ -59,7 +63,7 @@ public class NotesRepository {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                notesDao.updateNotes(notes);
+                notesDao.deleteNotes(notes);
             }
         });
     }

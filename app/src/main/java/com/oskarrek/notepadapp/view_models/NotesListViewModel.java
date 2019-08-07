@@ -23,16 +23,24 @@ public class NotesListViewModel extends AndroidViewModel {
         fetchNotes();
     }
 
+    /*Get live data to let activity observe it.*/
     public LiveData<List<Note>> getNotes() {
         return notesLiveData;
     }
 
+
+    /*Add new note to database.*/
     public void insertNotes(Note... notes) {
         notesRepository.insertNotesTask(notes);
-        fetchNotes();
     }
 
+    public void deleteNote(Note... notes) {
+        notesRepository.deleteNotesTask(notes);
+    }
+
+    /*Update fetch notes from database and pass it to live data*/
     private void fetchNotes() {
         notesLiveData = notesRepository.getNotesTask();
     }
+
 }

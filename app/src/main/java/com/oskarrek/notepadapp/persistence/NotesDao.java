@@ -20,6 +20,9 @@ public interface NotesDao {
     @Query("SELECT * FROM notes")
     LiveData<List<Note>> getNotesList();
 
+    @Query("SELECT * FROM notes WHERE noteID = :noteID")
+    LiveData<Note> getNoteById(int noteID);
+
     @Delete
     int deleteNotes(Note... notes);
 

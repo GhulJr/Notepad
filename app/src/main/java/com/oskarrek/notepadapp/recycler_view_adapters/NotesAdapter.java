@@ -63,7 +63,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     }
 
 
-
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
 
         private CardView noteView;
@@ -79,4 +78,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         this.notes = notes;
         notifyDataSetChanged();
     }
+
+    public Note getNoteAt(int adapterPosition) {
+        return notes.get(adapterPosition);
+    }
+
 }
